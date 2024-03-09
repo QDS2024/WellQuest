@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     flex: 1, // Ensure the container takes up the full screen
     width: "100%",
     justifyContent: "center", // Center children vertically in the container
-    marginVertical: 20,
+    padding: 15,
   },
   rewardDescription: {
     width: "90%",
