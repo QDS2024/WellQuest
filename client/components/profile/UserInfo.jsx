@@ -15,15 +15,21 @@ export default function UserInfo() {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{
-          uri: userData.profilePic,
-        }}
-        style={{ width: 80, height: 80, borderRadius: 50 }}
-      />
-      <View style={styles.info}>
-        <Text style={{ fontSize: 20 }}>{userData.username}</Text>
-        <Text>{userData.email}</Text>
+      <View style={styles.topContainer}>
+        <Image
+          source={{
+            uri: userData.profilePic,
+          }}
+          style={{ width: 80, height: 80, borderRadius: 50 }}
+        />
+        <View style={styles.info}>
+          <Text style={{ fontSize: 20 }}>{userData.username}</Text>
+          <Text>{userData.email}</Text>
+        </View>
+      </View>
+      <View style={styles.bottomContainer}>
+        <Text>Your Balance</Text>
+        <Text style={styles.points}>{userData.points} Points</Text>
       </View>
     </View>
   );
@@ -31,14 +37,24 @@ export default function UserInfo() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
     padding: 20,
     borderRadius: 10,
     backgroundColor: Colors.lighGray,
   },
+  topContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   info: {
     padding: 20,
     gap: 5,
+  },
+  bottomContainer: {
+    marginTop: 30,
+    alignItems: "center",
+  },
+  points: {
+    fontWeight: "bold",
+    fontSize: 20,
   },
 });
