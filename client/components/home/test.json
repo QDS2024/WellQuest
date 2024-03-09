@@ -1,0 +1,7 @@
+{
+    "title": "quest number 1",
+    "description": "this is a quest",
+    "points": 1234,
+    "userId": "user1",
+    "categoryId": "category1"
+}
