@@ -14,7 +14,7 @@ const port = process.env.PORT;
 
 // Routers
 const userRouter = require("./routers/userRouter");
-
+const categoryRouter = require("./routers/categoryRouter")
 // Middleware to parse JSON bodies
 app.use(express.json());
 
@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
 
 // User endpoints
 app.use("/api/user", userRouter);
+app.use("/api/category", categoryRouter);
 
 // Mongodb Connection
 const mongoUri = `mongodb+srv://${mongoUser}:${mongoPw}@cluster0.hg1ibzx.mongodb.net/${mongoDb}?retryWrites=true&w=majority&appName=Cluster0`;
