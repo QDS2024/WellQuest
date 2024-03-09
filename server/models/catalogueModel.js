@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const catalogueSchema = new Schema({
   rewardsIDs: {
-    type: String,
+    type: [String],
     required: true,
   }
 });
