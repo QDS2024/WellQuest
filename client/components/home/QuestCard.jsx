@@ -3,8 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 import Colors from "../../colors";
 
-const Card = ({ questData }) => {
-  console.log(questData);
+const QuestCard = ({ questData }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{questData.title}</Text>
@@ -19,7 +18,6 @@ const Card = ({ questData }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-
     padding: 20,
     borderRadius: 10,
     backgroundColor: Colors.lighGray,
@@ -43,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Card;
+export default QuestCard;
