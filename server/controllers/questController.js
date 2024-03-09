@@ -57,7 +57,7 @@ const updateQuest = async (req, res) => {
 
   try {
     const quest = await Quest.findOneAndUpdate(
-      { id: ObjectId.createFromHexString(id) },
+      { _id: ObjectId.createFromHexString(id) },
       { ...data },
       { runValidators: true }
     );
@@ -75,7 +75,7 @@ const deleteQuest = async (req, res) => {
   }
 
   const quest = await Quest.findOneAndDelete({
-    id: ObjectId.createFromHexString(id),
+    _id: ObjectId.createFromHexString(id),
   });
 
   if (!quest) {
