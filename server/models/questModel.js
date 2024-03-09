@@ -2,23 +2,27 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-  username: {
+const questSchema = new Schema({
+  title: {
     type: String,
     required: true,
   },
-  password: {
+  description: {
     type: String,
     required: true,
   },
   points: {
-    type: Number,
+    type: String,
     required: true,
   },
-  questIds: {
+  userId: {
+    type: String,
+    required: true,
+  },
+  categoryId: {
     type: [String],
     required: true,
   },
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Quest", questSchema);
