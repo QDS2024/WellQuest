@@ -6,50 +6,63 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Colors from "../../colors";
 import UserInfo from "./UserInfo";
-// import EditInfo from "./EditInfo";
+import EditInfo from "./EditInfo";
+import UserSettings from "./UserSettings";
 
 const Stack = createNativeStackNavigator();
 
-function DetailsScreen() {
-  console.log("!!!");
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Details!</Text>
-    </View>
-  );
-}
-
-function EditInfo() {
-  console.log("????");
+function MainScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Edit Info</Text>
+      <UserInfo />
+      <View style={styles.cards}>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate("EditInfo")}
+        >
+          <Text>Edit Info</Text>
+          <Feather name="chevron-right" size={24} color="black" />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate("UserSettings")}
+        >
+          <Text>Settings</Text>
+          <Feather name="chevron-right" size={24} color="black" />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => console.log("Help pressed")}
+        >
+          <Text>Help</Text>
+          <Feather name="chevron-right" size={24} color="black" />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.card, { backgroundColor: "#8f250c" }]}
+          onPress={() => console.log("log out pressed")}
+        >
+          <Text style={{ fontWeight: "bold", color: Colors.white }}>
+            Logout
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 export default function ProfileScreen({ navigation }) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName="MainScreen"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="MainScreen" component={MainScreen} />
       <Stack.Screen name="EditInfo" component={EditInfo} />
-      <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Screen name="UserSettings" component={UserSettings} />
     </Stack.Navigator>
-    // <View style={styles.container}>
-    //   <UserInfo />
-
-    //   <View>
-    //     <TouchableOpacity
-    //       style={styles.card}
-    //       onPress={() => navigation.navigate("EditInfo")}
-    //     >
-    //       <Text>Edit Info</Text>
-    //       <Feather name="chevron-right" size={24} color="black" />
-    //     </TouchableOpacity>
-    //     <Text>Edit Info</Text>
-    //     <Text>Settings</Text>
-    //     <Text>Logout</Text>
-    //   </View>
-    // </View>
   );
 }
 
@@ -58,12 +71,15 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 40,
   },
+  cards: {
+    gap: 20,
+  },
   card: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     padding: 20,
     borderRadius: 10,
-    backgroundColor: Colors.lighGray,
+    backgroundColor: Colors.lightGreen,
   },
 });
