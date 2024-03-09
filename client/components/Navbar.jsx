@@ -1,15 +1,25 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 
 import HomeScreen from "./home/HomeScreen";
-import SettingsScreen from "./settings/SettingsScreen";
+import ProfileScreen from "./profile/ProfileScreen";
+import Colors from "../colors";
 
 const Tab = createBottomTabNavigator();
 
+const CustomTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: Colors.black,
+    background: Colors.white,
+  },
+};
+
 export default function Navbar() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={CustomTheme}>
       <Tab.Navigator>
         <Tab.Screen
           name="Home"
@@ -19,12 +29,10 @@ export default function Navbar() {
           }}
         />
         <Tab.Screen
-          name="Settings"
-          component={SettingsScreen}
+          name="Profile"
+          component={ProfileScreen}
           options={{
-            tabBarIcon: ({}) => (
-              <Feather name="settings" size={24} color="black" />
-            ),
+            tabBarIcon: ({}) => <Feather name="user" size={24} color="black" />,
           }}
         />
       </Tab.Navigator>
