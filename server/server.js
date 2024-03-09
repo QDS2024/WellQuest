@@ -17,6 +17,8 @@ const userRouter = require("./routers/userRouter");
 const questRouter = require("./routers/questRouter");
 const categoryRouter = require("./routers/categoryRouter")
 const catalogueRouter = require("./routers/catalogueRouter")
+const rewardsRouter = require("./routers/rewardsRouter");
+
 // Middleware to parse JSON bodies
 app.use(express.json());
 
@@ -30,6 +32,7 @@ app.use("/api/user", userRouter);
 app.use("/api/quest", questRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/catalogue", catalogueRouter);
+app.use("/api/rewards", rewardsRouter);
 
 
 // Mongodb Connection
