@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
   },
   rewardDescription: {
     width: "90%",
+    height: "15%",
     backgroundColor: "white",
     borderRadius: 10,
     shadowColor: "#000",
@@ -99,11 +100,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   descriptionTitle: {
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: "bold",
   },
   descriptionText: {
-    fontSize: 20,
+    fontSize: 15,
   },
   centeredContent: {
     justifyContent: "center", // Center content vertically
