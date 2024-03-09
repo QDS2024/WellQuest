@@ -1,29 +1,26 @@
 const express = require("express");
 const userRouter = express.Router();
+const {
+  createUser,
+  readUser,
+  readAllUsers,
+  updateUser,
+  deleteUser,
+} = require("../controllers/userController");
 
 // Create
-userRouter.post("/create", (req, res) => {
-  res.json({ msg: "create" });
-});
+userRouter.post("/create", createUser);
 
 // Read
-userRouter.get("/read", (req, res) => {
-  res.json({ msg: "read" });
-});
+userRouter.get("/read", readUser);
 
 // Read All
-userRouter.get("/read/all", (req, res) => {
-  res.json({ msg: "read all" });
-});
+userRouter.get("/read/all", readAllUsers);
 
 // Update
-userRouter.patch("/update", (req, res) => {
-  res.json({ msg: "update" });
-});
+userRouter.patch("/update", updateUser);
 
 // Delete
-userRouter.delete("/delete", (req, res) => {
-  res.json({ msg: "update" });
-});
+userRouter.delete("/delete", deleteUser);
 
 module.exports = userRouter;
