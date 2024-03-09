@@ -1,16 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
+import Card from "./QuestCard";
+import testData from "./test.json";
 
 export default function HomeScreen() {
-  return (
-    <View>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-    </View>
-  );
+  console.log(testData);
+  return <Card questData={testData} />;
 }
