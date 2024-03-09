@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const catalogueSchema = new Schema({
-  rewardsIDs: {
+  rewardIds: {
     type: [String],
     required: true,
   }

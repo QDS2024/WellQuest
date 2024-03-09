@@ -2,29 +2,89 @@ const Rewards = require("../models/rewardsModel");
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
 
-// Create rewards
+// Create Rewards
 const createRewards = async (req, res) => {
-  res.json({ msg: "create" });
+  let { name, description, price } = req.body;
+
+  try {
+    const rewards = await Rewards.create({
+      name,
+      description,
+      price,
+    });
+    res.status(200).json(rewards);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 // Read rewards
 const readRewards = async (req, res) => {
-  res.json({ msg: "read" });
+  const { id } = req.query;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+
+  const rewards = await Rewards.findById(id);
+
+  if (!rewards) {
+    return res.status(404).json({ error: "Rewards not found" });
+  }
+
+  res.status(200).json(rewards);
 };
 
 // Read all rewards
 const readAllRewards = async (req, res) => {
-  res.json({ msg: "read all" });
+  try {
+    const rewards = await Rewards.find({}).sort({ createdAt: -1 });
+    res.status(200).json(rewards);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 // Update rewards
 const updateRewards = async (req, res) => {
-  res.json({ msg: "update" });
+  const { id, ...data } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+
+  try {
+    const rewards = await Rewards.findOneAndUpdate(
+      { _id: ObjectId.createFromHexString(id) },
+      { ...data },
+      { runValidators: true }
+    );
+    if (!rewards) {
+      return res.status(404).json({ error: "Rewards not found" });
+    }
+    res.status(200).json(rewards);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 // Delete rewards
 const deleteRewards = async (req, res) => {
-  res.json({ msg: "delete" });
+  const { id } = req.query;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+
+  const rewards = await Rewards.findOneAndDelete({
+    _id: ObjectId.createFromHexString(id),
+  });
+
+  if (!rewards) {
+    return res.status(404).json({ error: "Rewards not found" });
+  }
+
+  res.status(200).json(rewards);
 };
 
 module.exports = {
