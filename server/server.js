@@ -12,6 +12,9 @@ const mongoPw = process.env.MONGOPW;
 const mongoDb = process.env.MONGODB;
 const port = process.env.PORT;
 
+// Routers
+const userRouter = require("./routers/userRouter");
+
 // Middleware to parse JSON bodies
 app.use(express.json());
 
@@ -19,6 +22,9 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ msg: "Hello World" });
 });
+
+// User endpoints
+app.use("/api/user", userRouter);
 
 // Mongodb Connection
 const mongoUri = `mongodb+srv://${mongoUser}:${mongoPw}@cluster0.hg1ibzx.mongodb.net/${mongoDb}?retryWrites=true&w=majority&appName=Cluster0`;
