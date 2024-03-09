@@ -10,7 +10,7 @@ const QuestCard = ({ questData }) => {
       <Text style={styles.description} numberOfLines={1}>
         {questData.description}
       </Text>
-      <Text style={styles.points}>{questData.points}</Text>
+      <Text style={styles.points}>{questData.points + " pts"}</Text>
     </View>
   );
 };
