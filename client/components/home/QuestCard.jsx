@@ -18,9 +18,17 @@ const QuestCard = ({ questData }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    padding: 20,
+    padding: 15,
     borderRadius: 10,
-    backgroundColor: Colors.lighGray,
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   title: {
     fontSize: 20,
