@@ -1,29 +1,26 @@
 const express = require("express");
 const rewardsRouter = express.Router();
+const {
+  createRewards,
+  readRewards,
+  readAllRewards,
+  updateRewards,
+  deleteRewards,
+} = require("../controllers/rewardsController");
 
 // Create
-rewardsRouter.post("/create", (req, res) => {
-  res.json({ msg: "create" });
-});
+rewardsRouter.post("/create", createRewards);
 
 // Read
-rewardsRouter.get("/read", (req, res) => {
-  res.json({ msg: "read" });
-});
+rewardsRouter.get("/read", readRewards);
 
 // Read All
-rewardsRouter.get("/read/all", (req, res) => {
-  res.json({ msg: "read all" });
-});
+rewardsRouter.get("/read/all", readAllRewards);
 
 // Update
-rewardsRouter.patch("/update", (req, res) => {
-  res.json({ msg: "update" });
-});
+rewardsRouter.patch("/update", updateRewards);
 
 // Delete
-rewardsRouter.delete("/delete", (req, res) => {
-  res.json({ msg: "update" });
-});
+rewardsRouter.delete("/delete", deleteRewards);
 
 module.exports = rewardsRouter;
