@@ -4,12 +4,12 @@ const ObjectId = mongoose.Types.ObjectId;
 
 // Create Category
 const createCategory = async (req, res) => {
-  let { title,description } = req.body;
+  let { title, description } = req.body;
 
   try {
     const category = await Category.create({
       title,
-      description
+      description,
     });
     res.status(200).json(category);
   } catch (error) {
@@ -70,6 +70,7 @@ const updateCategory = async (req, res) => {
 // Delete Category
 const deleteCategory = async (req, res) =>  {
   const { id } = req.query;
+  //res.json({ msg: "delete" });
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "Invalid id" });
   }
