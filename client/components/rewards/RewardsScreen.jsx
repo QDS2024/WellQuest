@@ -65,6 +65,8 @@ const RewardsScreen = () => {
             />
           )}
           keyExtractor={(_item, index) => index.toString()}
+          style={styles.rewardsList}
+          contentContainerStyle={styles.centeredContent} // Apply the centering styles to the content container of FlatList
         />
       </View>
     </>
@@ -73,8 +75,10 @@ const RewardsScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
+    flex: 1, // Ensure the container takes up the full screen
+    width: "100%",
+    justifyContent: "center", // Center children vertically in the container
+    marginVertical: 20,
   },
   rewardDescription: {
     width: "90%",
@@ -100,6 +104,10 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     fontSize: 20,
+  },
+  centeredContent: {
+    justifyContent: "center", // Center content vertically
+    alignItems: "center", // Center content horizontally
   },
 });
 

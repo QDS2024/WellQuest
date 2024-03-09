@@ -43,11 +43,10 @@ const Card = ({ name, description, price }) => (
 
 const styles = StyleSheet.create({
   card: {
-    width: 350,
+    width: "90%",
     backgroundColor: "white",
     padding: 10,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    marginVertical: 5,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
