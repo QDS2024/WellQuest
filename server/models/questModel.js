@@ -12,7 +12,7 @@ const questSchema = new Schema({
     required: true,
   },
   points: {
-    type: String,
+    type: Number,
     required: true,
   },
   userId: {
