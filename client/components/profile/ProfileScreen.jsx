@@ -1,49 +1,50 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Colors from "../../colors";
 import UserInfo from "./UserInfo";
-import EditInfo from "./EditInfo";
-import UserSettings from "./UserSettings";
 
-const Stack = createNativeStackNavigator();
+function ProfileScreenCard({ title, onPress, icon }) {
+  return (
+    <TouchableOpacity style={styles.card} onPress={onPress}>
+      <View style={styles.cardLeft}>
+        <Feather name={icon} size={16} color="black" />
+        <Text>{title}</Text>
+      </View>
+      <Feather name="chevron-right" size={24} color="black" />
+    </TouchableOpacity>
+  );
+}
 
-function MainScreen({ navigation }) {
+export default function ProfileScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <UserInfo />
-      <View style={styles.cards}>
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => navigation.navigate("EditInfo")}
-        >
-          <Text>Edit Info</Text>
-          <Feather name="chevron-right" size={24} color="black" />
-        </TouchableOpacity>
+      <View style={styles.containerBottom}>
+        <View style={styles.cards}>
+          <ProfileScreenCard
+            title="Edit Info"
+            onPress={() => navigation.navigate("EditInfo")}
+            icon="edit"
+          />
+          <ProfileScreenCard
+            title="Settings"
+            onPress={() => navigation.navigate("UserSettings")}
+            icon="settings"
+          />
 
+          <ProfileScreenCard
+            title="Help"
+            onPress={() => console.log("Help")}
+            icon="help-circle"
+          />
+        </View>
         <TouchableOpacity
-          style={styles.card}
-          onPress={() => navigation.navigate("UserSettings")}
-        >
-          <Text>Settings</Text>
-          <Feather name="chevron-right" size={24} color="black" />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => console.log("Help pressed")}
-        >
-          <Text>Help</Text>
-          <Feather name="chevron-right" size={24} color="black" />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.card, { backgroundColor: "#8f250c" }]}
+          style={[styles.card, styles.cardLogout]}
           onPress={() => console.log("log out pressed")}
         >
+          <Feather name="log-out" size={16} color="white" />
           <Text style={{ fontWeight: "bold", color: Colors.white }}>
             Logout
           </Text>
@@ -53,23 +54,15 @@ function MainScreen({ navigation }) {
   );
 }
 
-export default function ProfileScreen({ navigation }) {
-  return (
-    <Stack.Navigator
-      initialRouteName="MainScreen"
-      screenOptions={{ headerShown: false }}
-    >
-      <Stack.Screen name="MainScreen" component={MainScreen} />
-      <Stack.Screen name="EditInfo" component={EditInfo} />
-      <Stack.Screen name="UserSettings" component={UserSettings} />
-    </Stack.Navigator>
-  );
-}
-
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    gap: 40,
+    gap: 60,
+    flex: 1,
+  },
+  containerBottom: {
+    justifyContent: "space-between",
+    flex: 1,
   },
   cards: {
     gap: 20,
@@ -81,5 +74,15 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     backgroundColor: Colors.lightGreen,
+  },
+  cardLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  cardLogout: {
+    backgroundColor: "#8f250c",
+    justifyContent: "center",
+    gap: 10,
   },
 });

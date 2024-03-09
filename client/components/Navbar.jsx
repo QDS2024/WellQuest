@@ -4,7 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 import HomeScreen from "./home/HomeScreen";
-import ProfileScreen from "./profile/ProfileScreen";
+import ProfileStack from "./profile/ProfileStack";
 import Colors from "../colors";
 import RewardsScreen from "./rewards/RewardsScreen";
 
@@ -52,7 +52,7 @@ export default function Navbar() {
         />
         <Tab.Screen
           name="Profile"
-          component={ProfileScreen}
+          component={ProfileStack}
           options={({ route }) => ({
             headerTitle: getHeaderTitle(route),
             tabBarIcon: ({}) => <Feather name="user" size={24} color="black" />,
