@@ -1,6 +1,7 @@
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Feather, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 import HomeScreen from "./home/HomeScreen";
 import ProfileScreen from "./profile/ProfileScreen";
@@ -18,10 +19,23 @@ const CustomTheme = {
   },
 };
 
+function getHeaderTitle(route) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "MainScreen";
+
+  switch (routeName) {
+    case "MainScreen":
+      return "Profile";
+    case "EditInfo":
+      return "Edit Info";
+    case "UserSettings":
+      return "Settings";
+  }
+}
+
 export default function Navbar() {
   return (
     <NavigationContainer theme={CustomTheme}>
-      <Tab.Navigator>
+      <Tab.Navigator initialRouteName="Home">
         <Tab.Screen
           name="Home"
           component={HomeScreen}
@@ -30,24 +44,19 @@ export default function Navbar() {
           }}
         />
         <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            tabBarIcon: ({}) => <Feather name="user" size={24} color="black" />,
-          }}
-        />
-        <Tab.Screen
           name="Rewards"
           component={RewardsScreen}
           options={{
-            tabBarIcon: ({}) => (
-              <MaterialCommunityIcons
-                name="treasure-chest"
-                size={24}
-                color="black"
-              />
-            ),
+            tabBarIcon: ({}) => <Feather name="gift" size={24} color="black" />,
           }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={({ route }) => ({
+            headerTitle: getHeaderTitle(route),
+            tabBarIcon: ({}) => <Feather name="user" size={24} color="black" />,
+          })}
         />
       </Tab.Navigator>
     </NavigationContainer>

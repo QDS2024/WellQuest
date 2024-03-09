@@ -2,13 +2,13 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-export default function EditInfo({ navigation }) {
+export default function UserSettings({ navigation }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Feather name="chevron-left" size={24} color="black" />
       </TouchableOpacity>
-      <Text>Edit Info!!!!</Text>
+      <Text>User Settings</Text>
     </View>
   );
 }
