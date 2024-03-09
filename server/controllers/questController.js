@@ -4,27 +4,85 @@ const ObjectId = mongoose.Types.ObjectId;
 
 // Create Quest
 const createQuest = async (req, res) => {
-  res.json({ msg: "create" });
+  let { title, description, points, userId, categoryId } = req.body;
+
+  try {
+    const quest = await Quest.create({
+      title,
+      description,
+      points,
+      userId,
+      categoryId,
+    });
+    res.status(200).json(quest);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 // Read Quest
 const readQuest = async (req, res) => {
-  res.json({ msg: "read" });
+  const { id } = req.query;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+
+  const quest = await Quest.findById(id);
+
+  if (!quest) {
+    return res.status(404).json({ error: "Quest not found" });
+  }
+
+  res.status(200).json(quest);
 };
 
 // Read all Quests
 const readAllQuests = async (req, res) => {
-  res.json({ msg: "read all" });
+  try {
+    const quests = await Quest.find({}).sort({ createdAt: -1 });
+    res.status(200).json(quests);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 // Update Quest
 const updateQuest = async (req, res) => {
-  res.json({ msg: "update" });
+  const { id, ...data } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "invalid id" });
+  }
+
+  try {
+    const quest = await Quest.findOneAndUpdate(
+      { id: ObjectId.createFromHexString(id) },
+      { ...data },
+      { runValidators: true }
+    );
+    res.status(200).json(quest);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 // Delete Quest
 const deleteQuest = async (req, res) => {
-  res.json({ msg: "delete" });
+  const { id } = req.query;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+
+  const quest = await Quest.findOneAndDelete({
+    id: ObjectId.createFromHexString(id),
+  });
+
+  if (!quest) {
+    return res.status(404).json({ error: "Quest not found" });
+  }
+
+  res.status(200).json(quest);
 };
 
 module.exports = {
