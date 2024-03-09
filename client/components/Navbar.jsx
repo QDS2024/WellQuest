@@ -1,10 +1,11 @@
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Feather } from "@expo/vector-icons";
+import { Feather, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import HomeScreen from "./home/HomeScreen";
 import ProfileScreen from "./profile/ProfileScreen";
 import Colors from "../colors";
+import RewardsScreen from "./rewards/RewardsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,6 +34,19 @@ export default function Navbar() {
           component={ProfileScreen}
           options={{
             tabBarIcon: ({}) => <Feather name="user" size={24} color="black" />,
+          }}
+        />
+        <Tab.Screen
+          name="Rewards"
+          component={RewardsScreen}
+          options={{
+            tabBarIcon: ({}) => (
+              <MaterialCommunityIcons
+                name="treasure-chest"
+                size={24}
+                color="black"
+              />
+            ),
           }}
         />
       </Tab.Navigator>
