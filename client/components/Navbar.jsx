@@ -1,16 +1,9 @@
-import { StyleSheet, View, Pressable, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React from "react";
-import Home from "./home/Home";
+import { Feather } from "@expo/vector-icons";
 
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+import HomeScreen from "./home/HomeScreen";
+import SettingsScreen from "./settings/SettingsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,8 +11,22 @@ export default function Navbar() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Setting" component={SettingsScreen} />
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({}) => <Feather name="home" size={24} color="black" />,
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            tabBarIcon: ({}) => (
+              <Feather name="settings" size={24} color="black" />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
