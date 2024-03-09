@@ -1,29 +1,26 @@
 const express = require("express");
 const catalogueRouter = express.Router();
+const {
+  createCatalogue,
+  readCatalogue,
+  readAllCatalogues,
+  updateCatalogue,
+  deleteCatalogue,
+} = require("../controllers/catalogueController");
 
 // Create
-catalogueRouter.post("/create", (req, res) => {
-  res.json({ msg: "create" });
-});
+catalogueRouter.post("/create", createCatalogue);
 
 // Read
-catalogueRouter.get("/read", (req, res) => {
-  res.json({ msg: "read" });
-});
+catalogueRouter.get("/read", readCatalogue);
 
 // Read All
-catalogueRouter.get("/read/all", (req, res) => {
-  res.json({ msg: "read all" });
-});
+catalogueRouter.get("/read/all", readAllCatalogues);
 
 // Update
-catalogueRouter.patch("/update", (req, res) => {
-  res.json({ msg: "update" });
-});
+catalogueRouter.patch("/update", updateCatalogue);
 
 // Delete
-catalogueRouter.delete("/delete", (req, res) => {
-  res.json({ msg: "update" });
-});
+catalogueRouter.delete("/delete", deleteCatalogue);
 
 module.exports = catalogueRouter;
