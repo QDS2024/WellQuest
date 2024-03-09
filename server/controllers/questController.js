@@ -4,7 +4,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 // Create Quest
 const createQuest = async (req, res) => {
-  let { title, description, points, userId, categoryId } = req.body;
+  let { title, description, points, userId, categoryIds } = req.body;
 
   try {
     const quest = await Quest.create({
@@ -12,7 +12,7 @@ const createQuest = async (req, res) => {
       description,
       points,
       userId,
-      categoryId,
+      categoryIds,
     });
     res.status(200).json(quest);
   } catch (error) {

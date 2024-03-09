@@ -19,7 +19,7 @@ const questSchema = new Schema({
     type: String,
     required: true,
   },
-  categoryId: {
+  categoryIds: {
     type: [String],
     required: true,
   },
