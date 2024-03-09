@@ -2,6 +2,7 @@
 // Set up requires
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
 
@@ -21,6 +22,9 @@ const rewardsRouter = require("./routers/rewardsRouter");
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+// Enable CORS for all origins
+app.use(cors());
 
 // Sample route
 app.get("/", (req, res) => {
