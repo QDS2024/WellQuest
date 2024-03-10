@@ -1,15 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, ScrollView, Text } from "react-native";
 import QuestCard from "./QuestCard";
 import testData from "./test.json";
+import axios from "axios";
+import apiUrl from "../../apiUrl";
 
-export default function HomeScreen() {
+const HomeScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const testDataArray = Object.values(testData);
 
   const handleModalVisibility = (visibility) => {
     setIsModalVisible(visibility);
   };
+
+  const [user, setUser] = useState({});
+  const [userQuests, setUserQuests] = useState({});
+  const { username, points } = user;
+
+  useEffect(() => {
+    const userId = "65ece8ca4b6c918715c69896";
+    const fetchUserQuests = () => {
+      axios
+        .get(`${apiUrl}user/read?id=${userId}`)
+        .then((res) => {
+          const questIds = res.data.questIds;
+          const newQuests = {};
+
+          questIds.forEach((questId) => {
+            if (!(questId in userQuests)) {
+              axios.get(`${apiUrl}quest/read?id=${questId}`).then((res) => {
+                newQuests[res.data._id] = res.data;
+                setUserQuests({ ...userQuests, ...newQuests });
+              });
+            }
+          });
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    };
+    fetchUserQuests();
+  }, []);
 
   return (
     <>
@@ -25,17 +56,18 @@ export default function HomeScreen() {
           isModalVisible ? styles.faded : styles.normal,
         ]}
       >
-        {testDataArray.map((questData, index) => (
+        {Object.values(userQuests).map((data, index) => (
           <View
             key={"quest" + index + "View"}
             style={[
               styles.questCard,
-              index !== testDataArray.length - 1 && styles.questCardWithMargin,
+              index !== Object.keys(userQuests).length - 1 &&
+                styles.questCardWithMargin,
             ]}
           >
             <QuestCard
               key={"quest" + index + "Card"}
-              questData={questData}
+              questData={data}
               handleModalVisibility={handleModalVisibility}
             />
           </View>
@@ -43,7 +75,7 @@ export default function HomeScreen() {
       </ScrollView>
     </>
   );
-}
+};
 
 const styles = {
   container: {
@@ -94,3 +126,5 @@ const styles = {
     opacity: 1,
   },
 };
+
+export default HomeScreen;

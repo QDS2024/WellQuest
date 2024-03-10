@@ -23,6 +23,11 @@ const questSchema = new Schema({
     type: [String],
     required: true,
   },
+  isComplete: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Quest", questSchema);
