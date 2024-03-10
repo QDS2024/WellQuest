@@ -51,8 +51,6 @@ export default function LoginPage() {
       <TouchableOpacity style={styles.signinBtn}>
         <Text style={styles.saveText}>Sign Up</Text>
       </TouchableOpacity>
-
-
     </View>
   );
 }
@@ -60,7 +58,7 @@ export default function LoginPage() {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    gap: 80,
+    gap: 20,
     flex: 1,
     justifyContent:"center",
   },
