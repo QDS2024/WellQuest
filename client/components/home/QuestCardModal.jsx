@@ -2,8 +2,14 @@ import React from "react";
 import { StyleSheet, Text, Pressable, View } from "react-native";
 import Modal from "react-native-modal";
 import Colors from "../../colors";
+import { Feather } from "@expo/vector-icons";
 
-const QuestCardModal = ({ modalVisible, handleClose, questData }) => {
+const QuestCardModal = ({
+  modalVisible,
+  handleClose,
+  questData,
+  completed,
+}) => {
   return (
     <Modal
       animationType="slide"
@@ -13,7 +19,12 @@ const QuestCardModal = ({ modalVisible, handleClose, questData }) => {
     >
       <View style={styles.centeredView} activeOpacity={1}>
         <View style={styles.modalView}>
-          <Text style={styles.modalTitle}>{questData.title}</Text>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+            {completed && (
+              <Feather name="check" size={24} color={Colors.green} />
+            )}
+            <Text style={styles.modalTitle}>{questData.title}</Text>
+          </View>
           <Text>{questData.description}</Text>
           <Text style={styles.modalPoints}>{questData.points + " points"}</Text>
           <Pressable
