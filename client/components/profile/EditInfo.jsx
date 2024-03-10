@@ -15,6 +15,12 @@ import apiUrl from "../../apiUrl";
 import axios from "axios";
 
 function InfoInput({ title, value, onChange }) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
   return (
     <View style={styles.inputContainer}>
       <Text>{title}:</Text>
@@ -25,7 +31,20 @@ function InfoInput({ title, value, onChange }) {
           placeholderTextColor={Colors.green}
           onChangeText={onChange}
           value={value}
+          secureTextEntry={!isPasswordVisible && title === "Password"}
         />
+        {title === "Password" && (
+          <TouchableOpacity
+            onPress={togglePasswordVisibility}
+            style={styles.visibilityIcon}
+          >
+            <Feather
+              name={isPasswordVisible ? "eye" : "eye-off"}
+              size={20}
+              color="gray"
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -107,11 +126,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
     gap: 20,
   },
+  visibilityIcon: {
+    paddingHorizontal: 10,
+  },
   inputContainer: {
     gap: 5,
     marginBottom: 10,
   },
   inputView: {
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: Colors.lighGray,
     borderRadius: 10,
     width: "100%",
