@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, ScrollView, Text } from "react-native";
-import Colors from "../../colors";
 import QuestCard from "./QuestCard";
 import testData from "./test.json";
 
 export default function HomeScreen() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const testDataArray = Object.values(testData);
+
+  const handleModalVisibility = (visibility) => {
+    setIsModalVisible(visibility);
+  };
 
   return (
     <>
@@ -15,7 +19,12 @@ export default function HomeScreen() {
           Complete quests to earn points!
         </Text>
       </View>
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={[
+          styles.container,
+          isModalVisible ? styles.faded : styles.normal,
+        ]}
+      >
         {testDataArray.map((questData, index) => (
           <View
             style={[
@@ -23,7 +32,11 @@ export default function HomeScreen() {
               index !== testDataArray.length - 1 && styles.questCardWithMargin,
             ]}
           >
-            <QuestCard key={index} questData={questData} />
+            <QuestCard
+              key={index}
+              questData={questData}
+              handleModalVisibility={handleModalVisibility}
+            />
           </View>
         ))}
       </ScrollView>
@@ -72,5 +85,11 @@ const styles = {
   },
   descriptionText: {
     fontSize: 15,
+  },
+  faded: {
+    opacity: 0.5,
+  },
+  normal: {
+    opacity: 1,
   },
 };
