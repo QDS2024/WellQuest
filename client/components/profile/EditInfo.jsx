@@ -40,7 +40,7 @@ function InfoInput({ title, value, onChange }) {
           >
             <Feather
               name={isPasswordVisible ? "eye" : "eye-off"}
-              size={20}
+              size={18}
               color="gray"
             />
           </TouchableOpacity>
