@@ -20,23 +20,17 @@ WellQuest is a mobile application that encourages students to perform activities
 ## 4. Complete Setup
 
 Follow these steps to set up your environment and run the project:
-1. Go to `/client` and `/server` and run 
-```
-npm install
+1. Go to `/client` and `/server` and run `npm install`
 2. Create `.env` files in `/client` and `/server`
-3. Add the line to the `.env` in `/client`
-```
-HOST=YOUR.IP.ADDRESS:3000
+3. Add `HOST=YOUR.IP.ADDRESS:3000` to the `.env` in `/client`
 4. Set up MongoDB
 5. Add your credentials to the `.env` in `/server`
-```
+```.env
 MONGOUSER=testUser
 MONGOPW=pwpwpwpwpwpw
 MONGODB=myDB
 PORT=3000
-6. Run the command in `/client` and `/server` 
-```
-npm run start
+6. Do `npm run start` in `/client` & `/server` to run
 
 ## 5. Contributors
 
