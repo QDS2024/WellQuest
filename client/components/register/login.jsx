@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import {
   StyleSheet,
   Text,
@@ -8,6 +9,9 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import Colors from "../../colors";
+
+// TODO, change to real host address
+const host = "http://localhost:4000"
 
 function InfoInput({ title, value, onChange }) {
   return (
@@ -30,25 +34,56 @@ export default function LoginPage() {
   const userInfo = {
     //username: "Pingu Smith",
     email: "pingu@noot.com",
+    username: "pingu",
     password: "nootnoot"
   };
 
   //const [username, setUsername] = useState(userData.username);
-  const [email, setEmail] = useState(userInfo.email);
+  const [email, setEmail] = useState(userInfo.username);
+  const [username, setUsername] = useState(userInfo.email);
   const [password, setPassword] = useState(userInfo.password);
+  const login = ()=>{
+   
+    try {
+     const response = axios.post(`${host}/api/auth/login`, {
+      email,
+      username,
+      password,
+    });
+    
+      console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    };
+  }
+
+  const register = ()=>{
+   
+    try {
+     const response = axios.post(`${host}/api/auth/register`, {
+      email,
+      username,
+      password,
+    });
+    console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    };
+  }
 
   return (
     <View style={styles.container}>
 
       <View style={styles.inputs}>
         <InfoInput title="Email" value={email} onChange={setEmail} />
+        <InfoInput title="Username" value={username} onChange={setUsername} />
         <InfoInput title="Password" value={password} onChange={setPassword} />
       </View>
 
-      <TouchableOpacity style={styles.signinBtn}>
+      <TouchableOpacity style={styles.signinBtn} onPress={login}>
         <Text style={styles.saveText}>Log In</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.signinBtn}>
+      <TouchableOpacity style={styles.signinBtn} onPress={register}>
         <Text style={styles.saveText}>Sign Up</Text>
       </TouchableOpacity>
     </View>
