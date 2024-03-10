@@ -29,7 +29,7 @@ function ProfileScreenCard({ title, onPress, icon }) {
 export default function ProfileScreen({ navigation }) {
   const [user, setUser] = useState({});
 
-  // useFocusEffect is a hook from react-navigation that runs whenever the screen is focused
+  // call whenever u get to this screen
   useFocusEffect(
     React.useCallback(() => {
       console.log("profile screen");
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 20,
+    padding: "4%",
     borderRadius: 10,
     backgroundColor: Colors.lightGreen,
     shadowColor: "#000",
