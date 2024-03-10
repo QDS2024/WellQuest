@@ -4,6 +4,7 @@ import QuestCard from "./QuestCard";
 import testData from "./test.json";
 import axios from "axios";
 import apiUrl from "../../apiUrl";
+import Colors from "../../colors";
 
 const HomeScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -72,6 +73,7 @@ const HomeScreen = () => {
               key={"quest" + index + "Card"}
               questData={data}
               handleModalVisibility={handleModalVisibility}
+              completed={true}
             />
           </View>
         ))}
@@ -96,7 +98,7 @@ const styles = {
   questDescription: {
     width: "90%",
     height: "15%",
-    backgroundColor: "white",
+    backgroundColor: Colors.lightBeige,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
