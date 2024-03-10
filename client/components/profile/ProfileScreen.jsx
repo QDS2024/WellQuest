@@ -77,7 +77,7 @@ export default function ProfileScreen({ navigation }) {
           />
           <ProfileScreenCard
             title="Help"
-            onPress={() => console.log("Help")}
+            onPress={() => navigation.navigate("Help")}
             icon="help-circle"
           />
         </View>
