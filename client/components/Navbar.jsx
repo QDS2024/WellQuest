@@ -5,7 +5,7 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import HomeScreen from "./home/HomeScreen";
 import ProfileStack from "./profile/ProfileStack";
 import RewardsScreen from "./rewards/RewardsScreen";
-import LoginPage from "./register/Login";
+import LoginPage from "./register/login";
 
 const Tab = createBottomTabNavigator();
 

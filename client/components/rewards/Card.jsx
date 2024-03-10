@@ -12,7 +12,9 @@ import {
 
 const Card = ({ name, description, price, purchase, user }) => {
   const handlePurchase = () => {
-    purchase(user, price);
+    let reward = { name, description, price };
+    console.log("Handling purchase", user, reward);
+    purchase(user, reward);
   };
 
   useEffect(() => {

@@ -11,44 +11,49 @@ const RewardsScreen = () => {
   const [rewards, setRewards] = useState({});
   const { username, points } = user;
 
-  const purchase = (user, price) => {
-    if (user.points >= price) {
-      console.log("Purchasing");
-      const updatedUser = {
-        ...user,
-        points: user.points - price,
-      };
-      setUser(updatedUser);
-
-      // Send patch request to update user data on the server
+  const purchase = (user, reward) => {
+    if (user.points >= reward.price) {
       axios
-        .patch(`${apiUrl}user/update`, updatedUser)
+        .post(`${apiUrl}reward/create`, reward)
         .then((response) => {
-          console.log("User data updated successfully:", response.data);
+          const storedId = response.data._id;
+          const updatedUser = {
+            ...user,
+            points: user.points - reward.price,
+            rewardIds: [...user.rewardIds, storedId],
+          };
+          setUser(updatedUser);
+
+          // Send patch request to update user data on the server
+          axios
+            .patch(`${apiUrl}user/update`, updatedUser)
+            .then((response) => {
+              console.log("User data updated successfully:", response.data);
+            })
+            .catch((error) => {
+              console.error("Error updating user data:", error);
+            });
         })
         .catch((error) => {
-          console.error("Error updating user data:", error);
+          console.error("There was an error!", error);
         });
     }
   };
   //
   useEffect(() => {
-    console.log("Hello World");
     const userId = "65ece8ca4b6c918715c69896";
 
     const executeApi = async () => {
-      console.log(HOST);
-      console.log(`${apiUrl}user/read?id=65ece8ca4b6c918715c69896`);
-      console.log(user);
       axios
         .get(`${apiUrl}user/read?id=${userId}`)
         .then((response) => {
-          console.log(response.data);
-          let { username, points, _id } = response.data;
+          console.log("Success User:", response.data);
+          let { username, points, _id, rewardIds } = response.data;
           let userData = {
             id: _id,
             username,
             points,
+            rewardIds,
           };
           setUser(userData);
         })
@@ -57,17 +62,23 @@ const RewardsScreen = () => {
         });
 
       axios
-        .get(`${apiUrl}reward/read/all`)
-        .then((response) => {
-          let parsedRewards = response.data.map((reward) => {
-            let { name, description, price } = reward;
+        .get(`${apiUrl}catalogue/read?id=65ecc1437df23e30031e706d`)
+        .then(async (response) => {
+          let rewardIds = response.data.rewardIds;
+          console.log("Success Catalogue: ", rewardIds);
+
+          const requests = rewardIds.map((id) =>
+            axios.get(`${apiUrl}reward/read?id=${id}`)
+          );
+          const responses = await Promise.all(requests);
+          const data = responses.map((response) => response.data);
+          parsedRewards = data.map((reward) => {
             return {
-              name,
-              description,
-              price,
+              name: reward.name,
+              description: reward.description,
+              price: reward.price,
             };
           });
-          console.log(parsedRewards);
           setRewards(parsedRewards);
         })
         .catch((error) => {
