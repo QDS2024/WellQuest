@@ -24,6 +24,7 @@ const QuestCard = ({ questData, handleModalVisibility, completed = false }) => {
         modalVisible={modalVisible}
         handleClose={handleClose}
         questData={questData}
+        completed={completed}
       />
       <Pressable style={styles.container} onPress={handlePress}>
         <View style={{ flexDirection: "row", gap: 10 }}>
