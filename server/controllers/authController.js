@@ -1,44 +1,68 @@
-const User = require('../models/userModel');
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const User = require("../models/userModel");
 
-const handleErrors = (err) => {
-    let errors = { email: '', password:''};
+// Register a new user
+const register = async (req, res) => {
+  let { email, username, password } = req.body;
 
-    if (err.code === 11000) {
-        errors.email = 'that email is already registered';
-        return errors; 
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      email,
+      username,
+      password: hashedPassword,
+      points: 0,
+      questIds: [],
+    });
+    res.status(200).json({ message: "Registration successful", data: user });
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+};
+
+// Login with an existing user
+const login = async (req, res, next) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    if (err.message.includes('user validation failed')) {
-        Object.values(err.errors).forEach(({properties}) => {
-            errors[properties.path] = properties.message;
-        });
-    }
-    return errors;
-}
+    const existingPassword = user.password;
+    bcrypt
+      .compare(password, existingPassword)
+      .then((result) => {
+        if (result) {
+          res.json({ msg: "Login successful", data: result });
+        } else {
+          res.json({ msg: "Login Fail", data: result });
+        }
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error });
+      });
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+};
 
-module.exports.signup_get = (req,res) => {
-    res.render('signup');
-}
+// brb researching
+// bcrypt.compare(password, user.password);
 
-module.exports.login_get = (req,res) => {
-    res.render('login');
-}
+//   const passwordMatch = await user.comparePassword(password);
+//   if (!passwordMatch) {
+//     return res.status(401).json({ message: "Incorrect password" });
+//   }
 
-module.exports.signup_post = async (req,res) => {
-    const { email, password } = req.body;
+//   const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+//     expiresIn: "1 hour",
+//   });
+//   res.json({ token });
+// } catch (error) {
+//   next(error);
+// }
 
-    try {
-        const user = await User.create({email,password});
-        res.status(200).json(user);
-    }
-    catch (err) {
-        const errors = handleErrors(err);
-        res.status(404).json({errors});
-    }
-}
-
-module.exports.login_post = async (req,res) => {
-    const { email, password } = req.body;
-
-}
+module.exports = { register, login };
