@@ -38,7 +38,7 @@ export default function ProfileScreen({ navigation }) {
   );
 
   const fetchUser = async () => {
-    const userId = "65ec9f7da3b47c32984e2a30";
+    const userId = "65ece8ca4b6c918715c69896";
     try {
       const response = await axios.get(`${apiUrl}user/read?id=${userId}`);
       let { username, email, password, points, _id } = response.data;
@@ -116,6 +116,14 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     backgroundColor: Colors.lightGreen,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   cardLeft: {
     flexDirection: "row",

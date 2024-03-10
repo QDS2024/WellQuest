@@ -33,7 +33,15 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     borderRadius: 10,
-    backgroundColor: Colors.lighGray,
+    backgroundColor: Colors.lightBeige,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   topContainer: {
     flexDirection: "row",

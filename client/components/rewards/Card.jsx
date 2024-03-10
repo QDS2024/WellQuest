@@ -9,6 +9,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import Colors from "../../colors";
 
 const Card = ({ name, description, price, purchase, user }) => {
   const handlePurchase = () => {
@@ -62,9 +63,9 @@ const Card = ({ name, description, price, purchase, user }) => {
 const styles = StyleSheet.create({
   card: {
     width: "90%",
-    backgroundColor: "white",
+    backgroundColor: Colors.lightGreen,
     padding: 10,
-    marginVertical: 5,
+    marginVertical: 10,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
