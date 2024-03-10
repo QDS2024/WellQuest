@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
-import { Text, StyleSheet, Pressable } from "react-native";
+import { Text, StyleSheet, Pressable, View } from "react-native";
+import { Feather } from "@expo/vector-icons";
 import QuestCardModal from "./QuestCardModal";
+import Colors from "../../colors";
 
-const QuestCard = ({ questData, handleModalVisibility }) => {
+const QuestCard = ({ questData, handleModalVisibility, completed = false }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handlePress = () => {
@@ -24,7 +26,14 @@ const QuestCard = ({ questData, handleModalVisibility }) => {
         questData={questData}
       />
       <Pressable style={styles.container} onPress={handlePress}>
-        <Text style={styles.title}>{questData.title}</Text>
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          {completed && <Feather name="check" size={24} color="black" />}
+          <View style={{ flex: 1 }}>
+            <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+              {questData.title}
+            </Text>
+          </View>
+        </View>
         <Text style={styles.description} numberOfLines={1}>
           {questData.description}
         </Text>
@@ -39,7 +48,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     padding: 15,
     borderRadius: 10,
-    backgroundColor: "white",
+    backgroundColor: Colors.lightGreen,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
