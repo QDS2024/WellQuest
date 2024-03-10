@@ -23,7 +23,7 @@ Some examples of rewards are discounts at food vendors on BCIT campus, or free c
 
 1. Go to `/client` and `/server` and do `npm install`
 2. Create `.env` files in `/client` and `/server`
-3. Add `HOST=YOUR.IP.ADDRES:3000` to the `.env` in `/client`
+3. Add `HOST=YOUR.IP.ADDRESS:3000` to the `.env` in `/client`
 4. Set up MongoDB
 5. Add your credentials to the `.env` in `/server`
    - `MONGOUSER=testUser`
