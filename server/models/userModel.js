@@ -23,6 +23,10 @@ const userSchema = new Schema({
     type: [String],
     required: true,
   },
+  completedQuestIds: {
+    type: [String],
+    required: true,
+  },
   rewardIds: {
     type: [String],
     required: true,

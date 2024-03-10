@@ -15,17 +15,8 @@ const questSchema = new Schema({
     type: Number,
     required: true,
   },
-  userId: {
-    type: String,
-    required: true,
-  },
   categoryIds: {
     type: [String],
-    required: true,
-  },
-  isComplete: {
-    type: Boolean,
-    default: false,
     required: true,
   },
 });
