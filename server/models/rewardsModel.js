@@ -15,6 +15,10 @@ const rewardsSchema = new Schema({
     type: Number,
     required: true,
   },
+  image_tag: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("Rewards", rewardsSchema);
