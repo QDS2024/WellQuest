@@ -5,6 +5,7 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import HomeScreen from "./home/HomeScreen";
 import ProfileStack from "./profile/ProfileStack";
 import RewardsScreen from "./rewards/RewardsScreen";
+import LoginPage from "./register/login";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,9 +39,18 @@ export default function Navbar() {
           tabBarIcon: ({}) => <Feather name="gift" size={24} color="black" />,
         }}
       />
+
       <Tab.Screen
         name="Profile"
         component={ProfileStack}
+        options={({ route }) => ({
+          headerTitle: getHeaderTitle(route),
+          tabBarIcon: ({}) => <Feather name="user" size={24} color="black" />,
+        })}
+      />
+      <Tab.Screen
+        name="login"
+        component={LoginPage}
         options={({ route }) => ({
           headerTitle: getHeaderTitle(route),
           tabBarIcon: ({}) => <Feather name="user" size={24} color="black" />,
