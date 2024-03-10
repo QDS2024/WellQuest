@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import {
   View,
   Text,
@@ -9,37 +10,52 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const Card = ({ name, description, price }) => (
-  <View style={styles.card}>
-    <View style={styles.row}>
-      {/* Image container */}
-      <View style={[styles.column, { width: "25%" }]}>
-        <View style={styles.imgContainer}>
-          <Image
-            source={require("./testReward.png")} // Specify the path to the local image
-            style={styles.image}
-          />
+const Card = ({ name, description, price, purchase, user }) => {
+  const handlePurchase = () => {
+    purchase(user, price);
+  };
+
+  useEffect(() => {
+    console.log(price);
+  }, []);
+
+  return (
+    <>
+      <View style={styles.card}>
+        <View style={styles.row}>
+          {/* Image container */}
+          <View style={[styles.column, { width: "25%" }]}>
+            <View style={styles.imgContainer}>
+              <Image
+                source={require("./testReward.png")} // Specify the path to the local image
+                style={styles.image}
+              />
+            </View>
+          </View>
+          {/* Details container */}
+          <View style={([styles.column], { width: "75%" })}>
+            <Text style={styles.name}>{name}</Text>
+            <Text>{description}</Text>
+            <View style={[styles.row, { justifyContent: "space-between" }]}>
+              <View style={[styles.column]}>
+                <Text>Price: {price} points</Text>
+              </View>
+              {/* Purchase button */}
+              <View style={[styles.column]}>
+                <TouchableOpacity
+                  onPress={handlePurchase}
+                  style={styles.button}
+                >
+                  <Text>Buy</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
         </View>
       </View>
-      {/* Details container */}
-      <View style={([styles.column], { width: "75%" })}>
-        <Text style={styles.name}>{name}</Text>
-        <Text>{description}</Text>
-        <View style={[styles.row, { justifyContent: "space-between" }]}>
-          <View style={[styles.column]}>
-            <Text>Price: {price} points</Text>
-          </View>
-          {/* Purchase button */}
-          <View style={[styles.column]}>
-            <TouchableOpacity style={styles.button}>
-              <Text>Buy</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </View>
-  </View>
-);
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   card: {
