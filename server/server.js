@@ -2,9 +2,10 @@
 // Set up requires
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 //authRoutes
-const authRoutes = require('./routes/authRouter');
+const authRoutes = require('./routers/authRouter');
 
 const app = express();
 
@@ -22,8 +23,13 @@ const categoryRouter = require("./routers/categoryRouter");
 const catalogueRouter = require("./routers/catalogueRouter");
 const rewardsRouter = require("./routers/rewardsRouter");
 
+const authRouter = require('./routers/authRouter');
+
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+// Enable CORS for all origins
+app.use(cors());
 
 // Sample route
 app.get("/", (req, res) => {
@@ -39,7 +45,7 @@ app.use("/api/category", categoryRouter);
 app.use("/api/catalogue", catalogueRouter);
 app.use("/api/reward", rewardsRouter);
 
-app.use(authRoutes);
+app.use("/api/auth", authRouter);
 
 // Mongodb Connection
 const mongoUri = `mongodb+srv://${mongoUser}:${mongoPw}@cluster0.hg1ibzx.mongodb.net/${mongoDb}?retryWrites=true&w=majority&appName=Cluster0`;
