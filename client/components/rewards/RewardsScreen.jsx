@@ -2,9 +2,10 @@ import React from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import Card from "./Card";
-import { HOST } from "@env";
 import apiUrl from "../../apiUrl";
 import axios from "axios";
+import { LinearGradient } from "expo-linear-gradient";
+import Colors from "../../colors";
 
 const RewardsScreen = () => {
   const [user, setUser] = useState({});
@@ -39,7 +40,7 @@ const RewardsScreen = () => {
         });
     }
   };
-  //
+
   useEffect(() => {
     const userId = "65ece8ca4b6c918715c69896";
     console.log(apiUrl);
@@ -90,21 +91,46 @@ const RewardsScreen = () => {
     executeApi();
   }, []);
 
+  const percentage = Math.min((points / 1000) * 100, 100);
+
   return (
     <>
       {/* Rewards Description */}
       <View style={styles.rewardDescription}>
-        <Text style={styles.descriptionTitle}>Rewards</Text>
-        <Text style={styles.descriptionText}>
-          Redeem your points for cool prizes!
-        </Text>
+        <View style={{ alignItems: "center" }}>
+          <Text style={styles.descriptionTitle}>Rewards</Text>
+          <Text style={styles.descriptionText}>
+            Redeem your points for cool prizes!
+          </Text>
+        </View>
+
+        <View style={{ width: "100%", alignItems: "center", gap: 10 }}>
+          <Text style={styles.pointsText}>{points} pts</Text>
+          <View
+            style={{
+              width: "100%",
+              borderWidth: 1,
+              borderRadius: 10,
+              backgroundColor: "#CCCCCC",
+            }}
+          >
+            <LinearGradient
+              colors={["#fefae0", "#588157"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={[styles.bar, { width: `${percentage}%` }]}
+            />
+            <View style={styles.thresholdsContainer}>
+              <View style={[styles.thresholdCircle, { left: "20%" }]} />
+              <View style={[styles.thresholdCircle, { left: "40%" }]} />
+              <View style={[styles.thresholdCircle, { left: "60%" }]} />
+              <View style={[styles.thresholdCircle, { left: "80%" }]} />
+            </View>
+          </View>
+        </View>
       </View>
       {/* User Information */}
-      <View style={styles.userInfo}>
-        <Text style={styles.userText}>
-          {username}: {points}
-        </Text>
-      </View>
+      {/* <View style={styles.pointsContainer}></View> */}
 
       {/* Rewards List */}
       <View style={styles.container}>
@@ -138,8 +164,7 @@ const styles = StyleSheet.create({
   },
   rewardDescription: {
     width: "90%",
-    height: "15%",
-    backgroundColor: "white",
+    backgroundColor: Colors.lightBeige,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
@@ -151,13 +176,15 @@ const styles = StyleSheet.create({
     elevation: 5,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    gap: 30,
+    paddingVertical: 30,
+    paddingHorizontal: 10,
     marginHorizontal: 20,
     marginTop: 20,
   },
-  userInfo: {
+  pointsContainer: {
     width: "90%",
-    height: "10%",
+    height: "12%",
     backgroundColor: "white",
     borderRadius: 10,
     shadowColor: "#000",
@@ -170,9 +197,10 @@ const styles = StyleSheet.create({
     elevation: 5,
     justifyContent: "center",
     alignItems: "center",
-    padding: 5,
+    padding: 15,
     marginHorizontal: 20,
     marginTop: 20,
+    gap: "12%",
   },
   descriptionTitle: {
     fontSize: 30,
@@ -184,6 +212,31 @@ const styles = StyleSheet.create({
   centeredContent: {
     justifyContent: "center", // Center content vertically
     alignItems: "center", // Center content horizontally
+  },
+  pointsText: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  bar: {
+    height: 20,
+    borderRadius: 10,
+  },
+  thresholdsContainer: {
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    height: "100%",
+    paddingHorizontal: 5,
+  },
+  thresholdCircle: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: "#FFFFFF",
+    position: "absolute",
+    top: "50%",
+    transform: [{ translateY: -5 }],
   },
 });
 
