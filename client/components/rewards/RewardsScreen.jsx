@@ -6,44 +6,6 @@ import { HOST } from "@env";
 import apiUrl from "../../apiUrl";
 import axios from "axios";
 
-const testRewardData = [
-  {
-    name: "Test Reward",
-    description: "Some Yummy Nummies or smt",
-    price: 25,
-  },
-  {
-    name: "Test Reward",
-    description: "Some Yummy Nummies or smt",
-    price: 25,
-  },
-  {
-    name: "Test Reward",
-    description: "Some Yummy Nummies or smt",
-    price: 25,
-  },
-  {
-    name: "Test Reward",
-    description: "Some Yummy Nummies or smt",
-    price: 25,
-  },
-  {
-    name: "Test Reward",
-    description: "Some Yummy Nummies or smt",
-    price: 25,
-  },
-  {
-    name: "Test Reward",
-    description: "Some Yummy Nummies or smt",
-    price: 25,
-  },
-  {
-    name: "Test Reward",
-    description: "Some Yummy Nummies or smt",
-    price: 25,
-  },
-];
-
 const RewardsScreen = () => {
   const [user, setUser] = useState({});
   const [rewards, setRewards] = useState({});
