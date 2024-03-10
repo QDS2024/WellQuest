@@ -12,12 +12,10 @@ import {
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  return (
-    <Text>login</Text>
-  )
+  return <Text>login</Text>;
 }
 //     <View style={styles.container}>
-//       <Image style={styles.image} source={require("./assets/icon.png")} /> 
+//       <Image style={styles.image} source={require("./assets/icon.png")} />
 //       <StatusBar style="auto" />
 //       <View style={styles.inputView}>
 //         <TextInput
@@ -25,8 +23,8 @@ export default function LoginPage() {
 //           placeholder="Email."
 //           placeholderTextColor="#3F4238"
 //           onChangeText={(email) => setEmail(email)}
-//         /> 
-//       </View> 
+//         />
+//       </View>
 //       <View style={styles.inputView}>
 //         <TextInput
 //           style={styles.TextInput}
@@ -34,15 +32,15 @@ export default function LoginPage() {
 //           placeholderTextColor="#3F4238"
 //           secureTextEntry={true}
 //           onChangeText={(password) => setPassword(password)}
-//         /> 
-//       </View> 
+//         />
+//       </View>
 //       <TouchableOpacity>
-//         <Text style={styles.forgot_button}>Forgot Password?</Text> 
-//       </TouchableOpacity> 
+//         <Text style={styles.forgot_button}>Forgot Password?</Text>
+//       </TouchableOpacity>
 //       <TouchableOpacity style={styles.loginBtn}>
-//         <Text style={styles.loginText}>LOGIN</Text> 
-//       </TouchableOpacity> 
-//     </View> 
+//         <Text style={styles.loginText}>LOGIN</Text>
+//       </TouchableOpacity>
+//     </View>
 //   );
 // }
 // const styles = StyleSheet.create({

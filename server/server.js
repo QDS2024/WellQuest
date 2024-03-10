@@ -2,6 +2,7 @@
 // Set up requires
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 //authRoutes
 const authRoutes = require('./routers/authRouter');
@@ -26,6 +27,9 @@ const authRouter = require('./routers/authRouter');
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+// Enable CORS for all origins
+app.use(cors());
 
 // Sample route
 app.get("/", (req, res) => {
