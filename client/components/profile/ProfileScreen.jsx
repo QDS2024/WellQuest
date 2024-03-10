@@ -1,7 +1,16 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+import axios from "axios";
 
+import apiUrl from "../../apiUrl";
 import Colors from "../../colors";
 import UserInfo from "./UserInfo";
 
@@ -18,14 +27,47 @@ function ProfileScreenCard({ title, onPress, icon }) {
 }
 
 export default function ProfileScreen({ navigation }) {
+  const [user, setUser] = useState({});
+
+  // useFocusEffect is a hook from react-navigation that runs whenever the screen is focused
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("profile screen");
+      fetchUser();
+    }, [])
+  );
+
+  const fetchUser = async () => {
+    const userId = "65ec9f7da3b47c32984e2a30";
+    try {
+      const response = await axios.get(`${apiUrl}user/read?id=${userId}`);
+      let { username, email, password, points, _id } = response.data;
+      let userData = {
+        id: _id,
+        username,
+        email,
+        password,
+        points,
+      };
+      setUser(userData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <UserInfo />
+    <ScrollView
+      contentContainerStyle={{
+        rowGap: 40,
+      }}
+      style={styles.container}
+    >
+      <UserInfo user={user} />
       <View style={styles.containerBottom}>
         <View style={styles.cards}>
           <ProfileScreenCard
             title="Edit Info"
-            onPress={() => navigation.navigate("EditInfo")}
+            onPress={() => navigation.navigate("EditInfo", { user })}
             icon="edit"
           />
           <ProfileScreenCard
@@ -33,7 +75,6 @@ export default function ProfileScreen({ navigation }) {
             onPress={() => navigation.navigate("UserSettings")}
             icon="settings"
           />
-
           <ProfileScreenCard
             title="Help"
             onPress={() => console.log("Help")}
@@ -50,7 +91,7 @@ export default function ProfileScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -63,6 +104,7 @@ const styles = StyleSheet.create({
   containerBottom: {
     justifyContent: "space-between",
     flex: 1,
+    minHeight: "60%",
   },
   cards: {
     gap: 20,

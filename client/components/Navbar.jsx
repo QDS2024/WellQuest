@@ -46,6 +46,7 @@ export default function Navbar() {
         options={({ route }) => ({
           headerTitle: getHeaderTitle(route),
           tabBarIcon: ({}) => <Feather name="user" size={24} color="black" />,
+          unmountOnBlur: true,
         })}
       />
       <Tab.Screen
