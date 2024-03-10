@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,6 +8,9 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import Colors from "../../colors";
+
+import apiUrl from "../../apiUrl";
+import axios from "axios";
 
 function InfoInput({ title, value, onChange }) {
   return (
@@ -26,20 +29,31 @@ function InfoInput({ title, value, onChange }) {
   );
 }
 
-export default function EditInfo({ navigation }) {
-  const userData = {
-    username: "Pingu Smith",
-    // email: "pingu@noot.com",
-    password: "nootnoot",
-    profilePic:
-      "https://git.enib.fr/uploads/-/system/project/avatar/1031/pingu-face.png",
-    points: 100,
-    questIds: [1, 2, 3],
-  };
+export default function EditInfo({ route, navigation }) {
+  const { user } = route.params;
 
-  const [username, setUsername] = useState(userData.username);
-  const [email, setEmail] = useState(userData.email);
-  const [password, setPassword] = useState(userData.password);
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState(user.password);
+
+  const handleSave = () => {
+    const updatedUser = {
+      ...user,
+      username,
+      email,
+      password,
+    };
+
+    axios
+      .patch(`${apiUrl}user/update`, updatedUser)
+      .then((response) => {
+        console.log("success");
+        navigation.navigate("ProfileScreen");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -53,7 +67,7 @@ export default function EditInfo({ navigation }) {
         <InfoInput title="Password" value={password} onChange={setPassword} />
       </View>
 
-      <TouchableOpacity style={styles.saveBtn}>
+      <TouchableOpacity style={styles.saveBtn} onPress={handleSave}>
         <Text style={styles.saveText}>SAVE</Text>
       </TouchableOpacity>
     </View>

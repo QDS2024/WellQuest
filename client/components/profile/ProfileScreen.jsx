@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+import axios from "axios";
 
+import apiUrl from "../../apiUrl";
 import Colors from "../../colors";
 import UserInfo from "./UserInfo";
 
@@ -18,6 +21,35 @@ function ProfileScreenCard({ title, onPress, icon }) {
 }
 
 export default function ProfileScreen({ navigation }) {
+  const [user, setUser] = useState({});
+
+  // useFocusEffect is a hook from react-navigation that runs whenever the screen is focused
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("profile screen");
+      fetchUser();
+    }, [])
+  );
+
+  const fetchUser = async () => {
+    const userId = "65ec9f7da3b47c32984e2a30";
+    try {
+      const response = await axios.get(`${apiUrl}user/read?id=${userId}`);
+      let { username, email, password, points, _id } = response.data;
+      let userData = {
+        id: _id,
+        username,
+        email,
+        password,
+        points,
+      };
+      setUser(userData);
+      console.log({ name: userData.username });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <UserInfo />
@@ -25,7 +57,7 @@ export default function ProfileScreen({ navigation }) {
         <View style={styles.cards}>
           <ProfileScreenCard
             title="Edit Info"
-            onPress={() => navigation.navigate("EditInfo")}
+            onPress={() => navigation.navigate("EditInfo", { user })}
             icon="edit"
           />
           <ProfileScreenCard
