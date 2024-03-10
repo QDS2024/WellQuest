@@ -44,7 +44,6 @@ export default function ProfileScreen({ navigation }) {
         points,
       };
       setUser(userData);
-      console.log({ name: userData.username });
     } catch (error) {
       console.error(error);
     }
@@ -52,7 +51,7 @@ export default function ProfileScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <UserInfo />
+      <UserInfo user={user} />
       <View style={styles.containerBottom}>
         <View style={styles.cards}>
           <ProfileScreenCard

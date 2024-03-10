@@ -2,34 +2,28 @@ import { View, Text, Image, StyleSheet } from "react-native";
 
 import Colors from "../../colors";
 
-export default function UserInfo() {
-  const userData = {
-    username: "Pingu Smith",
-    email: "pingu@noot.com",
-    password: "nootnoot",
-    profilePic:
-      "https://git.enib.fr/uploads/-/system/project/avatar/1031/pingu-face.png",
-    points: 100,
-    questIds: [1, 2, 3],
-  };
+export default function UserInfo({ user }) {
+  // todo: get profile pic from user
+  const profilePic =
+    "https://git.enib.fr/uploads/-/system/project/avatar/1031/pingu-face.png";
 
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Image
           source={{
-            uri: userData.profilePic,
+            uri: profilePic,
           }}
           style={{ width: 80, height: 80, borderRadius: 50 }}
         />
         <View style={styles.info}>
-          <Text style={{ fontSize: 20 }}>{userData.username}</Text>
-          <Text>{userData.email}</Text>
+          <Text style={{ fontSize: 20 }}>{user.username}</Text>
+          <Text>{user.email}</Text>
         </View>
       </View>
       <View style={styles.bottomContainer}>
         <Text>Your Balance</Text>
-        <Text style={styles.points}>{userData.points} Points</Text>
+        <Text style={styles.points}>{user.points} Points</Text>
       </View>
     </View>
   );
