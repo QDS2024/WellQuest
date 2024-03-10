@@ -36,7 +36,7 @@ function InfoInput({ title, value, onChange }) {
 export default function LoginPage({ navigation }) {
   const userInfo = {
     //username: "Pingu Smith",
-    email: "pingu@noot.com",
+    email: "kim.pingu@gmail.com",
     username: "pingu",
     password: "nootnoot",
   };
