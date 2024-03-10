@@ -11,7 +11,22 @@ import {
 } from "react-native";
 import Colors from "../../colors";
 
-const Card = ({ name, description, price, purchase, user }) => {
+const getRewardImage = (name) => {
+  console.log({ name });
+  switch (name) {
+    case "aw":
+      return require("../../assets/aw.png");
+    case "habitat":
+      console.log("Habitat");
+      return require("../../assets/habitat.png");
+    case "timhortons":
+      return require("../../assets/timhortons.png");
+    default:
+      return require("./testReward.png");
+  }
+};
+
+const Card = ({ name, description, price, purchase, user, image = "" }) => {
   const handlePurchase = () => {
     let reward = { name, description, price };
     console.log("Handling purchase", user, reward);
@@ -27,10 +42,12 @@ const Card = ({ name, description, price, purchase, user }) => {
       <View style={styles.card}>
         <View style={styles.row}>
           {/* Image container */}
-          <View style={[styles.column, { width: "25%" }]}>
+          <View
+            style={[styles.column, { width: "25%", justifyContent: "center" }]}
+          >
             <View style={styles.imgContainer}>
               <Image
-                source={require("./testReward.png")} // Specify the path to the local image
+                source={getRewardImage(image)} // Specify the path to the local image
                 style={styles.image}
               />
             </View>
@@ -39,9 +56,14 @@ const Card = ({ name, description, price, purchase, user }) => {
           <View style={([styles.column], { width: "75%" })}>
             <Text style={styles.name}>{name}</Text>
             <Text>{description}</Text>
-            <View style={[styles.row, { justifyContent: "space-between" }]}>
+            <View
+              style={[
+                styles.row,
+                { justifyContent: "space-between", alignItems: "flex-end" },
+              ]}
+            >
               <View style={[styles.column]}>
-                <Text>Price: {price} points</Text>
+                <Text style={{ fontWeight: "bold" }}>{price} pts</Text>
               </View>
               {/* Purchase button */}
               <View style={[styles.column]}>
@@ -93,7 +115,7 @@ const styles = StyleSheet.create({
   image: {
     width: 70,
     height: 70,
-    resizeMode: "cover", // Set the image resizing mode
+    resizeMode: "contain", // Set the image resizing mode
   },
   imgContainer: {},
   button: {

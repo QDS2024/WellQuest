@@ -40,8 +40,8 @@ export default function LoginPage({ navigation }) {
   };
 
   //const [username, setUsername] = useState(userData.username);
-  const [email, setEmail] = useState(userInfo.username);
-  const [username, setUsername] = useState(userInfo.email);
+  const [email, setEmail] = useState(userInfo.email);
+  const [username, setUsername] = useState(userInfo.username);
   const [password, setPassword] = useState(userInfo.password);
   const login = async () => {
     console.log("Logging in...");
@@ -76,6 +76,10 @@ export default function LoginPage({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.welcome}>
+        <Text style={{ fontSize: 20 }}>welcome to</Text>
+        <Text style={{ fontSize: 30 }}>WellQuest</Text>
+      </View>
       <View style={styles.inputs}>
         <InfoInput title="Email" value={email} onChange={setEmail} />
         <InfoInput title="Username" value={username} onChange={setUsername} />
@@ -98,6 +102,11 @@ const styles = StyleSheet.create({
     gap: 20,
     flex: 1,
     justifyContent: "center",
+  },
+  welcome: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: "20%",
   },
   inputs: {
     gap: 20,

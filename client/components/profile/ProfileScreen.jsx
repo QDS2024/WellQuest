@@ -83,7 +83,7 @@ export default function ProfileScreen({ navigation }) {
         </View>
         <TouchableOpacity
           style={[styles.card, styles.cardLogout]}
-          onPress={() => console.log("log out pressed")}
+          onPress={() => navigation.navigate("Login")}
         >
           <Feather name="log-out" size={16} color="white" />
           <Text style={{ fontWeight: "bold", color: Colors.white }}>

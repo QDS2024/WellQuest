@@ -24,7 +24,7 @@ export default function App() {
       <View style={{ flex: 1, paddingTop: 30, backgroundColor: Colors.white }}>
         <Stack.Navigator
           initialRouteName="Login"
-          screenOptions={{ title: "WellQuest", headerTitleAlign: "center" }}
+          screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="Main" component={MainPage} />

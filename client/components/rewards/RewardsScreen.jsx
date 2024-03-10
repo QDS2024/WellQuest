@@ -75,10 +75,12 @@ const RewardsScreen = () => {
           const responses = await Promise.all(requests);
           const data = responses.map((response) => response.data);
           parsedRewards = data.map((reward) => {
+            console.log(reward);
             return {
               name: reward.name,
               description: reward.description,
               price: reward.price,
+              image: reward.image_tag,
             };
           });
           setRewards(parsedRewards);
@@ -142,6 +144,7 @@ const RewardsScreen = () => {
               name={item.name}
               description={item.description}
               price={item.price}
+              image={item.image}
               purchase={purchase}
               user={user}
             />
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 30,
-    paddingVertical: 30,
+    paddingVertical: "5%",
     paddingHorizontal: 10,
     marginHorizontal: 20,
     marginTop: 20,
