@@ -1,8 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
-import Navbar from "./components/Navbar";
+import MainPage from "./components/MainPage";
+import LoginPage from "./components/register/login";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { View } from "react-native";
 import Colors from "./colors";
 
 const CustomTheme = {
@@ -14,12 +16,20 @@ const CustomTheme = {
   },
 };
 
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
-    <View style={{ flex: 1, paddingTop: 30, backgroundColor: Colors.white }}>
-      <NavigationContainer theme={CustomTheme}>
-        <Navbar />
-      </NavigationContainer>
-    </View>
+    <NavigationContainer theme={CustomTheme}>
+      <View style={{ flex: 1, paddingTop: 30, backgroundColor: Colors.white }}>
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{ title: "WellQuest", headerTitleAlign: "center" }}
+        >
+          <Stack.Screen name="Login" component={LoginPage} />
+          <Stack.Screen name="Main" component={MainPage} />
+        </Stack.Navigator>
+      </View>
+    </NavigationContainer>
   );
 }

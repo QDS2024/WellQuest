@@ -31,7 +31,7 @@ function InfoInput({ title, value, onChange }) {
   );
 }
 
-export default function LoginPage() {
+export default function LoginPage({ navigation }) {
   const userInfo = {
     //username: "Pingu Smith",
     email: "pingu@noot.com",
@@ -53,6 +53,7 @@ export default function LoginPage() {
       });
 
       console.log(response.data);
+      navigation.navigate("Main");
     } catch (error) {
       console.error(error);
     }
@@ -67,6 +68,7 @@ export default function LoginPage() {
         password,
       });
       console.log(response.data);
+      navigation.navigate("Main");
     } catch (error) {
       console.error(error);
     }

@@ -52,14 +52,6 @@ export default function Navbar() {
           unmountOnBlur: true,
         })}
       />
-      <Tab.Screen
-        name="login"
-        component={LoginPage}
-        options={({ route }) => ({
-          headerTitle: getHeaderTitle(route),
-          tabBarIcon: ({}) => <Feather name="user" size={24} color="black" />,
-        })}
-      />
     </Tab.Navigator>
   );
 }
