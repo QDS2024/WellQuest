@@ -57,9 +57,23 @@ export default function EditInfo({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Feather name="chevron-left" size={24} color="black" />
-      </TouchableOpacity>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ flex: 1 }}
+        >
+          <Feather name="chevron-left" size={24} color="black" />
+        </TouchableOpacity>
+        <View style={{ flex: 1, paddingRight: 55 }}>
+          <Text style={{ color: Colors.black, fontSize: 16 }}>Edit Info</Text>
+        </View>
+      </View>
 
       <View style={styles.inputs}>
         <InfoInput title="Username" value={username} onChange={setUsername} />

@@ -16,7 +16,7 @@ const CustomTheme = {
 
 export default function App() {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, paddingTop: 30, backgroundColor: Colors.white }}>
       <NavigationContainer theme={CustomTheme}>
         <Navbar />
       </NavigationContainer>
