@@ -15,29 +15,27 @@ const HomeScreen = () => {
 
   const [user, setUser] = useState({});
   const [userQuests, setUserQuests] = useState({});
-  const { username, points } = user;
+  const [completedUserQuests, setCompletedUserQuests] = useState({});
 
   useEffect(() => {
     const userId = "65ece8ca4b6c918715c69896";
-    const fetchUserQuests = () => {
-      axios
-        .get(`${apiUrl}user/read?id=${userId}`)
-        .then((res) => {
-          const questIds = res.data.questIds;
-          const newQuests = {};
+    const fetchUserQuests = async () => {
+      const user = await axios.get(`${apiUrl}user/read?id=${userId}`);
+      const { questIds, completedQuestIds } = user.data;
+      const activeQuests = {};
+      const completedQuests = {};
 
-          questIds.forEach((questId) => {
-            if (!(questId in userQuests)) {
-              axios.get(`${apiUrl}quest/read?id=${questId}`).then((res) => {
-                newQuests[res.data._id] = res.data;
-                setUserQuests({ ...userQuests, ...newQuests });
-              });
-            }
-          });
-        })
-        .catch((error) => {
-          console.error("There was an error!", error);
-        });
+      for (const questId of questIds) {
+        const quest = await axios.get(`${apiUrl}quest/read?id=${questId}`);
+        activeQuests[questId] = quest.data;
+      }
+
+      for (const questId of completedQuestIds) {
+        const quest = await axios.get(`${apiUrl}quest/read?id=${questId}`);
+        completedQuests[questId] = quest.data;
+      }
+      setUserQuests(activeQuests);
+      setCompletedUserQuests(completedQuests);
     };
     fetchUserQuests();
   }, []);
@@ -57,13 +55,18 @@ const HomeScreen = () => {
         ]}
       >
         {Object.values(userQuests).map((data, index) => (
+          <View key={"quest" + index + "View"} style={styles.questCard}>
+            <QuestCard
+              key={"quest" + index + "Card"}
+              questData={data}
+              handleModalVisibility={handleModalVisibility}
+            />
+          </View>
+        ))}
+        {Object.values(completedUserQuests).map((data, index) => (
           <View
             key={"quest" + index + "View"}
-            style={[
-              styles.questCard,
-              index !== Object.keys(userQuests).length - 1 &&
-                styles.questCardWithMargin,
-            ]}
+            style={[styles.questCard, styles.completedQuestCard]}
           >
             <QuestCard
               key={"quest" + index + "Card"}
@@ -83,14 +86,12 @@ const styles = {
     overflow: "scroll",
   },
   questCard: {
-    marginBottom: 0,
+    marginTop: 10,
     width: "85%",
     alignSelf: "center",
   },
-  questCardWithMargin: {
-    marginBottom: 10,
-    alignSelf: "center",
-    width: "85%",
+  completedQuestCard: {
+    opacity: 0.5,
   },
   questDescription: {
     width: "90%",
@@ -110,7 +111,6 @@ const styles = {
     padding: 10,
     marginHorizontal: 20,
     marginTop: 20,
-    marginBottom: 20,
   },
   descriptionTitle: {
     fontSize: 30,
