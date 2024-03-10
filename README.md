@@ -25,7 +25,7 @@ Follow these steps to set up your environment and run the project:
 3. Add `HOST=YOUR.IP.ADDRESS:3000` to the `.env` in `/client`
 4. Set up MongoDB
 5. Add your credentials to the `.env` in `/server`
-```.env
+   ```.env
    MONGOUSER=testUser
    MONGOPW=pwpwpwpwpwpw
    MONGODB=myDB
