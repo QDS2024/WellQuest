@@ -4,6 +4,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+//authRoutes
+const authRoutes = require('./routes/authRouter');
+
 const app = express();
 
 // dotenv access
@@ -31,12 +34,16 @@ app.get("/", (req, res) => {
   res.json({ msg: "Hello World" });
 });
 
+
+
 // User endpoints
 app.use("/api/user", userRouter);
 app.use("/api/quest", questRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/catalogue", catalogueRouter);
 app.use("/api/reward", rewardsRouter);
+
+app.use(authRoutes);
 
 // Mongodb Connection
 const mongoUri = `mongodb+srv://${mongoUser}:${mongoPw}@cluster0.hg1ibzx.mongodb.net/${mongoDb}?retryWrites=true&w=majority&appName=Cluster0`;

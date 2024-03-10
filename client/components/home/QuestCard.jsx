@@ -1,26 +1,53 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
 
-import Colors from "../../colors";
+import { Text, StyleSheet, Pressable } from "react-native";
+import QuestCardModal from "./QuestCardModal";
 
-const QuestCard = ({ questData }) => {
+const QuestCard = ({ questData, handleModalVisibility }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handlePress = () => {
+    setModalVisible(true);
+    handleModalVisibility(true);
+  };
+
+  const handleClose = () => {
+    setModalVisible(false);
+    handleModalVisibility(false);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{questData.title}</Text>
-      <Text style={styles.description} numberOfLines={1}>
-        {questData.description}
-      </Text>
-      <Text style={styles.points}>{questData.points}</Text>
-    </View>
+    <>
+      <QuestCardModal
+        modalVisible={modalVisible}
+        handleClose={handleClose}
+        questData={questData}
+      />
+      <Pressable style={styles.container} onPress={handlePress}>
+        <Text style={styles.title}>{questData.title}</Text>
+        <Text style={styles.description} numberOfLines={1}>
+          {questData.description}
+        </Text>
+        <Text style={styles.points}>{questData.points + " pts"}</Text>
+      </Pressable>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    padding: 20,
+    padding: 15,
     borderRadius: 10,
-    backgroundColor: Colors.lighGray,
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   title: {
     fontSize: 20,
