@@ -6,8 +6,9 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
 import Colors from "../../colors";
 import apiUrl from "../../apiUrl";
 
@@ -25,6 +26,7 @@ function InfoInput({ title, value, onChange }) {
           placeholderTextColor={Colors.green}
           onChangeText={onChange}
           value={value}
+          secureTextEntry={title === "Password" ? true : false}
         />
       </View>
     </View>
@@ -75,33 +77,39 @@ export default function LoginPage({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.welcome}>
-        <Text style={{ fontSize: 20 }}>welcome to</Text>
-        <Text style={{ fontSize: 30 }}>WellQuest</Text>
-      </View>
-      <View style={styles.inputs}>
-        <InfoInput title="Email" value={email} onChange={setEmail} />
-        <InfoInput title="Username" value={username} onChange={setUsername} />
-        <InfoInput title="Password" value={password} onChange={setPassword} />
-      </View>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <View style={styles.welcome}>
+          <Text style={{ fontSize: 20 }}>welcome to</Text>
+          <Text style={{ fontSize: 30 }}>WellQuest</Text>
+        </View>
+        <View style={styles.inputs}>
+          <InfoInput title="Email" value={email} onChange={setEmail} />
+          <InfoInput title="Username" value={username} onChange={setUsername} />
+          <InfoInput title="Password" value={password} onChange={setPassword} />
+        </View>
 
-      <TouchableOpacity style={styles.signinBtn} onPress={login}>
-        <Text style={styles.saveText}>Log In</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.signinBtn} onPress={register}>
-        <Text style={styles.saveText}>Sign Up</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity style={styles.signinBtn} onPress={login}>
+          <Text style={styles.saveText}>Log In</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.signinBtn} onPress={register}>
+          <Text style={styles.saveText}>Sign Up</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    gap: 20,
     flex: 1,
     justifyContent: "center",
+  },
+  scrollViewContainer: {
+    padding: 20,
+    flexGrow: 1,
+    justifyContent: "center",
+    gap: 20,
   },
   welcome: {
     alignItems: "center",
