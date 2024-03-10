@@ -1,18 +1,23 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const User = require('../models/userModel');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const User = require("../models/userModel");
 
 // Register a new user
-const register = async (req, res, next) => {
-  const { email, username, password } = req.body;
+const register = async (req, res) => {
+  let { email, username, password } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, username, password: hashedPassword });
-    await user.save();
-    res.json({ message: 'Registration successful' });
+    const user = await User.create({
+      email,
+      username,
+      password: hashedPassword,
+      points: 0,
+      questIds: [],
+    });
+    res.status(200).json({ message: "Registration successful", data: user });
   } catch (error) {
-    next(error);
+    res.status(400).json({ error: error });
   }
 };
 
@@ -23,16 +28,16 @@ const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     const passwordMatch = await user.comparePassword(password);
     if (!passwordMatch) {
-      return res.status(401).json({ message: 'Incorrect password' });
+      return res.status(401).json({ message: "Incorrect password" });
     }
 
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-      expiresIn: '1 hour'
+      expiresIn: "1 hour",
     });
     res.json({ token });
   } catch (error) {
