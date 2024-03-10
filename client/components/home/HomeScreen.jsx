@@ -27,13 +27,14 @@ export default function HomeScreen() {
       >
         {testDataArray.map((questData, index) => (
           <View
+            key={"quest" + index + "View"}
             style={[
               styles.questCard,
               index !== testDataArray.length - 1 && styles.questCardWithMargin,
             ]}
           >
             <QuestCard
-              key={index}
+              key={"quest" + index + "Card"}
               questData={questData}
               handleModalVisibility={handleModalVisibility}
             />
