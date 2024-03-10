@@ -31,18 +31,38 @@ const login = async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const passwordMatch = await user.comparePassword(password);
-    if (!passwordMatch) {
-      return res.status(401).json({ message: "Incorrect password" });
-    }
-
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-      expiresIn: "1 hour",
-    });
-    res.json({ token });
+    const existingPassword = user.password;
+    bcrypt
+      .compare(password, existingPassword)
+      .then((result) => {
+        if (result) {
+          res.json({ msg: "Login successful", data: result });
+        } else {
+          res.json({ msg: "Login Fail", data: result });
+        }
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error });
+      });
   } catch (error) {
-    next(error);
+    res.status(400).json({ error: error });
   }
 };
+
+// brb researching
+// bcrypt.compare(password, user.password);
+
+//   const passwordMatch = await user.comparePassword(password);
+//   if (!passwordMatch) {
+//     return res.status(401).json({ message: "Incorrect password" });
+//   }
+
+//   const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+//     expiresIn: "1 hour",
+//   });
+//   res.json({ token });
+// } catch (error) {
+//   next(error);
+// }
 
 module.exports = { register, login };
