@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
@@ -50,7 +56,12 @@ export default function ProfileScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      contentContainerStyle={{
+        rowGap: 40,
+      }}
+      style={styles.container}
+    >
       <UserInfo user={user} />
       <View style={styles.containerBottom}>
         <View style={styles.cards}>
@@ -64,7 +75,6 @@ export default function ProfileScreen({ navigation }) {
             onPress={() => navigation.navigate("UserSettings")}
             icon="settings"
           />
-
           <ProfileScreenCard
             title="Help"
             onPress={() => console.log("Help")}
@@ -81,7 +91,7 @@ export default function ProfileScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -94,6 +104,7 @@ const styles = StyleSheet.create({
   containerBottom: {
     justifyContent: "space-between",
     flex: 1,
+    minHeight: "60%",
   },
   cards: {
     gap: 20,
