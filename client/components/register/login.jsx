@@ -9,9 +9,10 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import Colors from "../../colors";
+import apiUrl from "../../apiUrl";
 
 // TODO, change to real host address
-const host = "http://localhost:4000"
+const host = apiUrl;
 
 function InfoInput({ title, value, onChange }) {
   return (
@@ -35,45 +36,44 @@ export default function LoginPage() {
     //username: "Pingu Smith",
     email: "pingu@noot.com",
     username: "pingu",
-    password: "nootnoot"
+    password: "nootnoot",
   };
 
   //const [username, setUsername] = useState(userData.username);
   const [email, setEmail] = useState(userInfo.username);
   const [username, setUsername] = useState(userInfo.email);
   const [password, setPassword] = useState(userInfo.password);
-  const login = ()=>{
-   
+  const login = async () => {
+    console.log("Logging in...");
     try {
-     const response = axios.post(`${host}/api/auth/login`, {
-      email,
-      username,
-      password,
-    });
-    
+      const response = await axios.post(`${host}auth/login`, {
+        email,
+        username,
+        password,
+      });
+
       console.log(response.data);
     } catch (error) {
-        console.error(error);
-    };
-  }
+      console.error(error);
+    }
+  };
 
-  const register = ()=>{
-   
+  const register = async () => {
     try {
-     const response = axios.post(`${host}/api/auth/register`, {
-      email,
-      username,
-      password,
-    });
-    console.log(response.data);
+      console.log("Registering...");
+      const response = await axios.post(`${host}auth/register`, {
+        email,
+        username,
+        password,
+      });
+      console.log(response.data);
     } catch (error) {
-        console.error(error);
-    };
-  }
+      console.error(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
-
       <View style={styles.inputs}>
         <InfoInput title="Email" value={email} onChange={setEmail} />
         <InfoInput title="Username" value={username} onChange={setUsername} />
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 20,
     flex: 1,
-    justifyContent:"center",
+    justifyContent: "center",
   },
   inputs: {
     gap: 20,

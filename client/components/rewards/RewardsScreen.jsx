@@ -42,6 +42,7 @@ const RewardsScreen = () => {
   //
   useEffect(() => {
     const userId = "65ece8ca4b6c918715c69896";
+    console.log(apiUrl);
 
     const executeApi = async () => {
       axios
