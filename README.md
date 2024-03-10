@@ -1,4 +1,4 @@
-# Project Title
+# QDS-Hacks-2024 WellQuest
 
 ## 1. Project Description
 
